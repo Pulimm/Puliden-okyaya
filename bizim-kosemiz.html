@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bizim Köşemiz</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #ffe6f0;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .geri-don {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: #f9c5d1;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(233, 164, 179, 0.3);
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+        }
+        
+        .geri-don:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(233, 164, 179, 0.4);
+        }
+        
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 80px 0 50px;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #e290a0;
+            font-weight: normal;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* GALERI STILI */
+        .galeri-izgara {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .galeri-izgara .foto {
+            aspect-ratio: 3/4;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        
+        .galeri-izgara .foto:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(255, 105, 180, 0.25);
+        }
+        
+        .galeri-izgara .foto img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .galeri-izgara .foto:hover img {
+            transform: scale(1.08);
+        }
+
+        /* VIDEO STILI */
+        .video-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 60px auto 30px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .video-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* LIGHTBOX */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 15px;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 70px 0 40px;
+                padding: 15px;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .galeri-izgara {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 15px;
+            }
+            
+            .geri-don {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<a href="ana-sayfa.html" class="geri-don">← Geri Dön</a>
+
+<div class="container">
+    <div class="header">
+        <h1 class="title">Bizim Köşemiz</h1>
+    </div>
+    
+    <div class="galeri-izgara" id="galeri">
+        <!-- Fotoğraflar JavaScript ile eklenecek -->
+    </div>
+    
+    <!-- ESKİ VİDEO -->
+<div class="video-container">
+    <video autoplay muted loop>
+        <source src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/89b8876a31ed0ef95290083bee514f2ab1cba04f/Let_this_person_hug_the_person_on_the_left__a848b3.mp4" type="video/mp4">
+    </video>
+</div>
+
+<!-- YENİ VİDEO -->
+<div class="video-container">
+    <video autoplay muted loop>
+        <source src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/729e026f6fdc8026f17cbe963265e1425d67a2c9/video_7bdd79ad_1756996430447.mp4" type="video/mp4">
+    </video>
+</div>
+
+</div> <!-- Container kapanışı -->
+
+<div class="lightbox" id="lightbox">
+    <span class="lightbox-close" onclick="kapatLightbox()">&times;</span>
+    <img class="lightbox-img" id="lightbox-img" src="">
+</div>
+
+<script>
+    // TÜM FOTOĞRAF LİNKLERİ (RAW FORMATINDA)
+    const fotoLinkleri = [
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/f7607cd7b1a11f48da36f6cf0d79b05e5f9812f1/IMG_20250902_104858_487.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/11879d1171f8aa82c03134aae5c7f106377061da/IMG_20250902_105039_310.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/e550dc8901cfa963cc547873d8f288ae62c7f857/IMG_20250902_112315_122.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/1b5f127fda1c4769fee5d24204860c0014e80eb1/IMG_20250902_115723_789.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/2842568f5ef45e065aa3ccd0878b5676bb53b60c/IMG_20250902_115726_043.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/3d3924fc962b27f091e58d61cd23944157e460c4/1734367673865_055110.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/fbc28422bc287b9b0a5de80e8a39f74ee3dda572/IMG_20250902_104629_561.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/8696141d84847eb62ff961141be5e08f5f07973c/IMG_20250902_104635_950.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/aa99328b3f7898e3a0dc2733cd8de7fc6ca1eb93/IMG_20250902_104652_032.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/7bd58a9d7d2192b1cd00b55c118bd3d9530505ae/IMG_20250902_104656_368.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/68995d866fb478813227f000596325ba9d4956a1/IMG_20250902_104700_088.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/d442f958d72bf3517524b34702b0a37b62efa865/IMG_20250902_104713_344.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/4a1e6e72e5c14cb988ffd1bf98734e78642ac30b/IMG_20250902_104738_429.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/f5cf87385b8a6d187bcfbdc2855324a516accb43/IMG_20250902_104820_797.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/1608f1a3584dbca3e65009786f517a95082e83b2/IMG_20250902_105025_117.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/196fa9d97484f502c126ffdb298f144f193dac65/IMG_20250902_111124_625.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/e4d1ae678c35348ba0d6484ad676d8b76c837c3a/IMG_20250902_111147_773.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/7ca45a6222d07cd50a316b3c9ec961e9a0043868/IMG_20250902_115720_634.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/553b156ad1e3ad380eb1cebeae96e890d1ec55f5/IMG_20241203_153034820.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/e626ba1a5171e111e015596e8316877f65a67414/1734367673831_055106.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/ea547e71895602c946e8ea1143b9dbc89cf146a1/1734367673066_054952.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/fcd5b6acc436ecc505c844404110b032ca41e2e3/IMG_20241203_143859153.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/e0b7b86a45b733acf6429b35a599d5bc1f1ce0c8/1734367674971_055419.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/69495f9dbebd6583d8f9919f54d6f6c5fcef4051/Screenshot_20241224-160014.png',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/616dd64f5947c048c9e9730f6fcddee32e414846/1734367673798_055102.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/24db6987a963824487775a5bc0f6c132b36ce827/Screenshot_20241216-222051.png',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/766c32e03cf0c21d155dd3d6e4d126cc6925b56d/IMG_20250902_104744_628.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/eb7d91ff91e764511e14f88fcfa98eb32d6a91f4/IMG_20250902_104814_240.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/937144d8cb7a517e2f260012d84ec5ef91ba9570/IMG_20250902_104837_570.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/f9557bcff9b6d71d3224c34fe0eb34a0bffff8dd/IMG_20250902_104844_158.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/5bf3b3739918f60698c7ad3d68cad7e5be02d57a/IMG_20250902_104847_965.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/2710f8321ff89c0ffab4aed9a9555fd4440bd7db/IMG_20250902_104852_149.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/4806056a23fa08ebe6bc41b6b4370e108a4f3d06/IMG_20250902_104906_067.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/48e72216aed6028ac782c3a0c262ae1e86fbbcb9/IMG_20250902_104914_644.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/81e0a31874a97e010f2e1fd70669bece6e886608/IMG_20250902_104939_304.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/6b9d3fc39102e47f86ecc32cf8b36f4a142c8aee/IMG_20250902_105036_423.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/31b3e015d4a83c66b55af886af3f3d4847170d0c/IMG_20250902_115729_399.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/0141da006d6da7b32529901ce091b96d3e47dc49/IMG_20250902_115800_895.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/731b411c8717b7942579ac70c9f66207271a6135/IMG_20250902_115835_711.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/cb81fb155112847d21985a7eeb903e0bbbf49c7d/Screenshot_20250105-164302.png',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/465909ee9f6b3890aabab5d468765a46ca8a1503/Screenshot_20250101-113525.png',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/c510f3ff3dedb2346a0169568acd9b4a2b376e38/IMG_20250206_131030_690.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/49094f9ea6a3c70b56929af1e2ad1499a5004a79/IMG_20241203_131044724.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/c3f6d385b2875b5a868759ae9e6a200f09773c38/1734367673085_054956.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/7e3dba5abc75892413388bcde00a9787177546e3/Screenshot_20241214-235407.png',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/430b175d567811b599d43cb8033d8581e61a1997/Screenshot_20250823-162431.png',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/11e1d7b6276c0999e0f93376e7e731399a97e575/IMG_20250902_105019_491.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/940f04becf9689ac024e0ee5131d04fae02b19ab/IMG_20250902_112341_116.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/6b6ed0f9fcc1b69ca60bf7deabc594e55a26ab91/IMG_20250902_115716_081.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/2184e2fc5ea0b584c8bd8cb8522a7ead20f90371/IMG_20250902_115843_406.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/ac21c3526e07a6a30568716a6de61e46fb384409/IMG_20250902_130011_159%20(1).jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/e3eaa0f4bad00efb0852b91bc316227825f2896f/IMG_20250902_130110_410%20(1).jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/653e9cc3917b902f0ed0149895f5d88c420fd6ce/IMG_20250902_130124_625%20(1).jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/17ade30db4ff3f50afee36a03939c066c3d0fce2/IMG_20250902_130053_502.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/3db2e3f4a8b65c51f322aef3e298f38b8bd27664/IMG_20250902_130021_587.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/1002662634f8c81dcaf34f34b460a38270fed7ed/IMG_20250902_130016_225.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/68e1116f95f2d81ab5dd6c4bc2c5710bbae4eee8/IMG_20250902_130002_891.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/ce6f8459dd86e3eecb1fb7b5b598094da7ee7152/IMG_20250902_125946_980.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/5cc81e66447cc9386d6c2d9fcc0c1550a36e6903/IMG_20250902_125934_992.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/560f56746e54fbb36c241116ba27f7f63b84e3ee/IMG_20250902_125928_906.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/20cca7ad3fb5db19bd9a82d8bb073d7a8e909e0f/IMG_20250902_125915_030.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/87413566d5bff45592aa5f6c264914750ff800a0/IMG_20250902_125845_144.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/01f371ddbc9a26fbe9c5f9b33b9f33b385cf947f/IMG_20250902_125821_174.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/49a2ad9ebd908dff61fec27af927021568796f75/IMG_20250902_125821_174.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/1433c08e8a1e90f8ef7dbf643c9d749db2b8c88f/IMG_20250902_125744_607.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/72a2f74142c09dfb0b3098593956f845fc3c10e5/IMG_20250902_125739_864.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/cb533581adc028798f3bd98bcfeeae8d1eded310/IMG_20250902_125639_292.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/767c5901b5812026d532c432451b3f278492acac/IMG_20250902_125617_058.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/18dbff7ccfc12f7f601959b495973a9ab4e39517/IMG_20250902_125609_689.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/8ed59c4ccb653c51c0f45a37cd74d3f4934c6b56/IMG_20250902_125554_789.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/66d1b29b284386ad0cee16ace367d950c62adf33/IMG_20250902_125515_031.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/989884d1c96f72049f757de86af15bcd40ddca13/IMG_20250902_125510_584.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/2ba28f7bce213df075dc209cf74da11abef50286/IMG_20250902_125245_492.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/c1a5d71a59c4fb0382d6e99cd67b9a34c5a718a8/IMG_20250902_125218_654.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/8cda347a639d83579ae3370ac4f3d290dad93826/IMG_20250902_104528_105.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/9c5f57c2b9c0a9896fac806fb13ecc1ebb0808f9/IMG_20250902_104520_785.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/969b521910a84a24168505f26d6880c4fe43fc55/IMG_20250819_090233_059.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/f403f069c956f613597fa00abdbc720400cc2d38/IMG_20250902_104426_181.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/a15feb95bc7fa3641ac12230f4bd203d1a591d8e/IMG_20250902_104056_440.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/131c31eedb628a72e4b56b15c6f2e7e40ecb0e5f/IMG_20250902_104041_461.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/458c7518fa4e7a570c0da2aa985ab2a811f64d34/IMG_20250902_104035_452.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/7c18f755d46f2f1adfa6db70c394f4fd01575f44/IMG_20250902_104030_917.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/f90ed0efa658adfa5e029572b9f64046481e2931/IMG_20250902_103955_376.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/64996d7ad9b889b321281012b0d5ece7eb41c0e0/IMG_20250902_103922_989.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/374900022fdf2e5d942f7fe1bc26fccafeabb476/IMG_20250902_103911_930.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/1f222710922251fb07c1a966045eb096fcadf7af/IMG_20250902_103715_008.jpg',
+        'https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/f72c5ef0af95b46814132449876d18b24c57635d/IMG_20250902_152508_303.jpg'
+    ];
+
+    function karistir(dizi) {
+        for (let i = dizi.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [dizi[i], dizi[j]] = [dizi[j], dizi[i]];
+        }
+        return dizi;
+    }
+
+    function acLightbox(link) {
+        document.getElementById('lightbox-img').src = link;
+        document.getElementById('lightbox').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function kapatLightbox() {
+        document.getElementById('lightbox').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    function galeriyiOlustur() {
+        const galeri = document.getElementById('galeri');
+        const karisikLinkler = karistir([...fotoLinkleri]);
+        
+        karisikLinkler.forEach(link => {
+            const fotoDiv = document.createElement('div');
+            fotoDiv.className = 'foto';
+            fotoDiv.onclick = () => acLightbox(link);
+            
+            const img = document.createElement('img');
+            img.src = link;
+            img.alt = "Bizim Köşemizden Bir Anı";
+            img.loading = "lazy";
+            
+            fotoDiv.appendChild(img);
+            galeri.appendChild(fotoDiv);
+        });
+    }
+
+    window.addEventListener('DOMContentLoaded', galeriyiOlustur);
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') kapatLightbox();
+    });
+
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+        if (e.target === this) kapatLightbox();
+    });
+</script>
+
+</body>
+</html>
