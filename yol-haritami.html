@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yol Haritamız - Anılarımız</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #ffe6f0;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin: 30px 0 50px 0;
+        }
+        
+        .title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #e290a0;
+            font-weight: normal;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .photo-container {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+            padding: 20px;
+        }
+        
+        .photo-item {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .photo-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .photo-image {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .photo-text-container {
+            position: absolute;
+            top: -50px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 10px 0;
+        }
+        
+        .photo-date {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+            color: #e290a0;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
+        }
+        
+        .photo-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            color: #e290a0;
+            line-height: 1.2;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Sallanan kalpler */
+        .sallanan-kalp {
+            position: fixed;
+            font-size: 24px;
+            color: #ff9eb5;
+            opacity: 0.7;
+            animation: sallan 3s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @keyframes sallan {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+            }
+            25% { 
+                transform: translateY(-8px) rotate(-2deg); 
+            }
+            75% { 
+                transform: translateY(8px) rotate(2deg); 
+            }
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 230, 240, 0.98);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+        
+        .modal-info {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .modal-date {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: #e290a0;
+            margin-bottom: 10px;
+        }
+        
+        .modal-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: #e290a0;
+        }
+        
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #ff6b95;
+            font-size: 2.5rem;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.9);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .close:hover {
+            background: #ff9eb5;
+            color: white;
+            transform: rotate(90deg);
+        }
+        
+        @media (max-width: 768px) {
+            .photo-container {
+                gap: 70px;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .photo-text-container {
+                top: -40px;
+            }
+            
+            .photo-date {
+                font-size: 1.4rem;
+            }
+            
+            .photo-text {
+                font-size: 1.8rem;
+            }
+            
+            .photo-image {
+                height: 300px;
+            }
+            
+            .modal-date {
+                font-size: 1.6rem;
+            }
+            
+            .modal-text {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sallanan kalpler -->
+    <div id="kalp-container"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Yol Haritamız</h1>
+        </div>
+        
+        <div class="photo-container">
+            <!-- 1. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/d12a93e350733845b4e6c6bc8498336518e89184/Polish_20250820_092417611.jpg', '', 'Kaderlerimizin birleştiği an')">
+                <div class="photo-text-container">
+                    <div class="photo-date"></div>
+                    <div class="photo-text">Kaderlerimizin birleştiği an</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/d12a93e350733845b4e6c6bc8498336518e89184/Polish_20250820_092417611.jpg" alt="Kaderlerimizin birleştiği an" class="photo-image">
+            </div>
+
+            <!-- 2. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/aa3e02b20c3be230e50c3a7cfb4c66f968b25572/IMG_20250728_163304_778%20(1).jpg', '13.10.2022', 'Herşeyden habersiz ilk mesajım')">
+                <div class="photo-text-container">
+                    <div class="photo-date">13.10.2022</div>
+                    <div class="photo-text">Herşeyden habersiz ilk mesajım</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/aa3e02b20c3be230e50c3a7cfb4c66f968b25572/IMG_20250728_163304_778%20(1).jpg" alt="Herşeyden habersiz ilk mesajım" class="photo-image">
+            </div>
+
+            <!-- 3. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/fb3a9118e796715f2782b7766a9abdb60060d25b/IMG_20250819_102555_639%20(1).jpg', '15.10.2022', 'İlk yalanınn')">
+                <div class="photo-text-container">
+                    <div class="photo-date">15.10.2022</div>
+                    <div class="photo-text">İlk yalanınn</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/fb3a9118e796715f2782b7766a9abdb60060d25b/IMG_20250819_102555_639%20(1).jpg" alt="İlk yalanınn" class="photo-image">
+            </div>
+
+            <!-- 4. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/4a91e73d54f66d6c2c6424de9fd1cb321330b496/IMG_20250819_102422_616%20(1).jpg', '', 'Fazlaca fark öyle mii')">
+                <div class="photo-text-container">
+                    <div class="photo-date"></div>
+                    <div class="photo-text">Fazlaca fark öyle mii</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/4a91e73d54f66d6c2c6424de9fd1cb321330b496/IMG_20250819_102422_616%20(1).jpg" alt="Fazlaca fark öyle mii" class="photo-image">
+            </div>
+
+            <!-- 5. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/218276c19a44bee20e915717e1b3e37e6ed863d8/IMG_20250823_161211_018.jpg', '22.07.2023', 'Bizim başlangıcımız')">
+                <div class="photo-text-container">
+                    <div class="photo-date">22.07.2023</div>
+                    <div class="photo-text">Bizim başlangıcımız</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/218276c19a44bee20e915717e1b3e37e6ed863d8/IMG_20250823_161211_018.jpg" alt="Bizim başlangıcımız" class="photo-image">
+            </div>
+
+            <!-- 6. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/06ebcc90f3c026f10b59026dc387d27a61c21a4a/Screenshot_20250820-141529.png', '17.09.2023', 'Beraber uyuduğumuz ilk gecemiz')">
+                <div class="photo-text-container">
+                    <div class="photo-date">17.09.2023</div>
+                    <div class="photo-text">Beraber uyuduğumuz ilk gecemiz</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/06ebcc90f3c026f10b59026dc387d27a61c21a4a/Screenshot_20250820-141529.png" alt="Beraber uyuduğumuz ilk gecemiz" class="photo-image">
+            </div>
+
+            <!-- 7. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/436dd95d26ad75f4f673b71e4f340324692978a5/IMG_20250820_141001_459.jpg', '03.11.2023', 'Rize tatili')">
+                <div class="photo-text-container">
+                    <div class="photo-date">03.11.2023</div>
+                    <div class="photo-text">Rize tatili</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/436dd95d26ad75f4f673b71e4f340324692978a5/IMG_20250820_141001_459.jpg" alt="Rize tatili" class="photo-image">
+            </div>
+
+            <!-- 8. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/56f453e13ba135bca572560c4ac674c07122396c/Screenshot_20250817-194528.png', '05.11.2023', 'İlk evlilik teklifi')">
+                <div class="photo-text-container">
+                    <div class="photo-date">05.11.2023</div>
+                    <div class="photo-text">İlk evlilik teklifi</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/56f453e13ba135bca572560c4ac674c07122396c/Screenshot_20250817-194528.png" alt="İlk evlilik teklifi" class="photo-image">
+            </div>
+
+            <!-- 9. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/8cdb29cd4025f95e04fa4118b350346e6026f1ae/1734367674182_055154.jpg', '14.11.2023', 'İlk buluşma')">
+                <div class="photo-text-container">
+                    <div class="photo-date">14.11.2023</div>
+                    <div class="photo-text">İlk buluşma</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/8cdb29cd4025f95e04fa4118b350346e6026f1ae/1734367674182_055154.jpg" alt="İlk buluşma" class="photo-image">
+            </div>
+
+            <!-- 10. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/d2c2be517205799440fe2ad173de2b2b0693a9c3/IMG_20250820_144455_428.jpg', '25.11.2023', 'İlk otobüs yolculuğu ve okulun bankında Kahvaltı')">
+                <div class="photo-text-container">
+                    <div class="photo-date">25.11.2023</div>
+                    <div class="photo-text">İlk otobüs yolculuğu ve okulun bankında Kahvaltı</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/d2c2be517205799440fe2ad173de2b2b0693a9c3/IMG_20250820_144455_428.jpg" alt="İlk otobüs yolculuğu" class="photo-image">
+            </div>
+
+            <!-- 11. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/6f1a106ade91e6b9b9162b66d04316a3c9d7184c/IMG_20250819_091414_971%20(1).jpg', '27.11.2023', 'Camide buluşma')">
+                <div class="photo-text-container">
+                    <div class="photo-date">27.11.2023</div>
+                    <div class="photo-text">Camide buluşma</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/6f1a106ade91e6b9b9162b66d04316a3c9d7184c/IMG_20250819_091414_971%20(1).jpg" alt="Camide buluşma" class="photo-image">
+            </div>
+
+            <!-- 12. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/d937a4cee9da97a1fea7ef4ffbb27150a5130e42/Screenshot_20250826-222956.png', '03.01.2024', 'Islak kek sürprizi')">
+                <div class="photo-text-container">
+                    <div class="photo-date">03.01.2024</div>
+                    <div class="photo-text">Islak kek sürprizi</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/d937a4cee9da97a1fea7ef4ffbb27150a5130e42/Screenshot_20250826-222956.png" alt="Islak kek sürprizi" class="photo-image">
+            </div>
+
+            <!-- 13. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/83d80867c1697d18614ea78168dce44c5843d94d/IMG_20250822_103838_753.jpg', '13.01.2024', 'Hayatımda aldığım en güzel ikinci hediyemin başlangıcı')">
+                <div class="photo-text-container">
+                    <div class="photo-date">13.01.2024</div>
+                    <div class="photo-text">Hayatımda aldığım en güzel ikinci hediyemin başlangıcı</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/83d80867c1697d18614ea78168dce44c5843d94d/IMG_20250822_103838_753.jpg" alt="Özel hediye" class="photo-image">
+            </div>
+
+            <!-- 14. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/2277003e3845f543d569223d66647a2fa3bf6815/IMG_20250820_142253_786.jpg', '18.01.2024', 'İlk Baklavam')">
+                <div class="photo-text-container">
+                    <div class="photo-date">18.01.2024</div>
+                    <div class="photo-text">İlk Baklavam</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/2277003e3845f543d569223d66647a2fa3bf6815/IMG_20250820_142253_786.jpg" alt="İlk Baklavam" class="photo-image">
+            </div>
+
+            <!-- 15. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/6e8ef73cb3f75cc345156f496b74b9e3e1167836/IMG_20250822_103240_620.jpg', '21.01.2024', '💍')">
+                <div class="photo-text-container">
+                    <div class="photo-date">21.01.2024</div>
+                    <div class="photo-text">💍</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/6e8ef73cb3f75cc345156f496b74b9e3e1167836/IMG_20250822_103240_620.jpg" alt="Yüzük" class="photo-image">
+            </div>
+
+            <!-- 16. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/37d4c7aa9907a0b1b05fe27f5767bc3e99df5bc9/IMG_20250822_103113_829.jpg', '21.01.2024', 'Oktayımın sarmaları')">
+                <div class="photo-text-container">
+                    <div class="photo-date">21.01.2024</div>
+                    <div class="photo-text">Oktayımın sarmaları</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/37d4c7aa9907a0b1b05fe27f5767bc3e99df5bc9/IMG_20250822_103113_829.jpg" alt="Oktayımın sarmaları" class="photo-image">
+            </div>
+
+            <!-- 17. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/138c44753ca7abf7a4438715fbd812f25a4c60ee/IMG_20250823_152851_889.jpg', '27.01.2024', 'Kadıköy buluşmamız')">
+                <div class="photo-text-container">
+                    <div class="photo-date">27.01.2024</div>
+                    <div class="photo-text">Kadıköy buluşmamız</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/138c44753ca7abf7a4438715fbd812f25a4c60ee/IMG_20250823_152851_889.jpg" alt="Kadıköy buluşmamız" class="photo-image">
+            </div>
+
+            <!-- 18. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/c254c04bdd24e976599fda92021fa60435e38fd4/Polish_20250823_120549781.jpg', '03.02.2024', 'Tiçibo kahve açılışı')">
+                <div class="photo-text-container">
+                    <div class="photo-date">03.02.2024</div>
+                    <div class="photo-text">Tiçibo kahve açılışı</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/c254c04bdd24e976599fda92021fa60435e38fd4/Polish_20250823_120549781.jpg" alt="Tiçibo kahve açılışı" class="photo-image">
+            </div>
+
+            <!-- 19. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/e3ef5376f47f4a366e0f0726b5b31fb1cf62770a/IMG_20250823_152716_761.jpg', '09.03.2024', 'Mevlüde Anneyle barışma')">
+                <div class="photo-text-container">
+                    <div class="photo-date">09.03.2024</div>
+                    <div class="photo-text">Mevlüde Anneyle barışma</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/e3ef5376f47f4a366e0f0726b5b31fb1cf62770a/IMG_20250823_152716_761.jpg" alt="Mevlüde Anneyle barışma" class="photo-image">
+            </div>
+
+            <!-- 20. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/7d646053b605edde5ec7e10572e094cf98b84426/Screenshot_20250825-142853.png', '22.03.2024', 'İlk curcuna gecemizz')">
+                <div class="photo-text-container">
+                    <div class="photo-date">22.03.2024</div>
+                    <div class="photo-text">İlk curcuna gecemizz</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/7d646053b605edde5ec7e10572e094cf98b84426/Screenshot_20250825-142853.png" alt="İlk curcuna gecemizz" class="photo-image">
+            </div>
+
+            <!-- 21. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/49a3750c314801e27c97602ec33f5a3e924cec12/Polish_20250823_163910611.jpg', '09.04.2024', 'Hayatımda ki en unutamıyacağım doğum günüm')">
+                <div class="photo-text-container">
+                    <div class="photo-date">09.04.2024</div>
+                    <div class="photo-text">Hayatımda ki en unutamıyacağım doğum günüm</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/49a3750c314801e27c97602ec33f5a3e924cec12/Polish_20250823_163910611.jpg" alt="Doğum günü" class="photo-image">
+            </div>
+
+            <!-- 22. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/a801a806a3822ccef85eb6edd2c2112184e25e9e/Polish_20250823_165539775.jpg', '26.05.2024', 'Mangal Paytisiii')">
+                <div class="photo-text-container">
+                    <div class="photo-date">26.05.2024</div>
+                    <div class="photo-text">Mangal Paytisiii</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/a801a806a3822ccef85eb6edd2c2112184e25e9e/Polish_20250823_165539775.jpg" alt="Mangal Paytisiii" class="photo-image">
+            </div>
+
+            <!-- 23. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/5accd4fa60764259fbdf599b4b663ac066b5c1be/IMG_20250823_170422_949.jpg', '12.07.2024', 'Ablamlarla buluşma')">
+                <div class="photo-text-container">
+                    <div class="photo-date">12.07.2024</div>
+                    <div class="photo-text">Ablamlarla buluşma</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/5accd4fa60764259fbdf599b4b663ac066b5c1be/IMG_20250823_170422_949.jpg" alt="Ablamlarla buluşma" class="photo-image">
+            </div>
+
+            <!-- 24. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/29b896a5362243a19c2849c8bfb91192bc8b43ee/IMG_20250823_170625_259.jpg', '27.07.2024', 'Oktayımın Ehliyetii alışııı')">
+                <div class="photo-text-container">
+                    <div class="photo-date">27.07.2024</div>
+                    <div class="photo-text">Oktayımın Ehliyetii alışııı</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/29b896a5362243a19c2849c8bfb91192bc8b43ee/IMG_20250823_170625_259.jpg" alt="Ehliyet" class="photo-image">
+            </div>
+
+            <!-- 25. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/7df30d998e59b465ec3aa27e92ea6270c0397a17/Screenshot_20250825-135041.png', '12.09.2024', 'Oktayımın doğum günüsüüü')">
+                <div class="photo-text-container">
+                    <div class="photo-date">12.09.2024</div>
+                    <div class="photo-text">Oktayımın doğum günüsüüü</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/7df30d998e59b465ec3aa27e92ea6270c0397a17/Screenshot_20250825-135041.png" alt="Doğum günü" class="photo-image">
+            </div>
+
+            <!-- 26. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/f3a1114d406f9e88bd8311814478ef23271f3100/Screenshot_20250826-220823.png', '27.11.2024', 'Pilavpare')">
+                <div class="photo-text-container">
+                    <div class="photo-date">27.11.2024</div>
+                    <div class="photo-text">Pilavpare</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/f3a1114d406f9e88bd8311814478ef23271f3100/Screenshot_20250826-220823.png" alt="Pilavpare" class="photo-image">
+            </div>
+
+            <!-- 27. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/ac8f88044c2c05ecd31eb5841d14aa1b3711ffd6/Screenshot_20250825-210639~2.png', '28.11.2024', 'Hayatımızın en güzel tatilinin başlangıcı')">
+                <div class="photo-text-container">
+                    <div class="photo-date">28.11.2024</div>
+                    <div class="photo-text">Hayatımızın en güzel tatilinin başlangıcı</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/ac8f88044c2c05ecd31eb5841d14aa1b3711ffd6/Screenshot_20250825-210639~2.png" alt="Tatil başlangıcı" class="photo-image">
+            </div>
+
+            <!-- 28. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/2021bc94c515ff6a80e5814a8009fe4dccb740d4/IMG_20250825_211903_221.jpg', '30.11.2024', 'İlk kahvaltımız')">
+                <div class="photo-text-container">
+                    <div class="photo-date">30.11.2024</div>
+                    <div class="photo-text">İlk kahvaltımız</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/2021bc94c515ff6a80e5814a8009fe4dccb740d4/IMG_20250825_211903_221.jpg" alt="İlk kahvaltımız" class="photo-image">
+            </div>
+
+            <!-- 29. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/15bf9d781fd0abe25e75cfe935fddfe2bf8bdc70/IMG-20241202-WA0002.jpeg', '02.12.2024', 'Kargo verdikk')">
+                <div class="photo-text-container">
+                    <div class="photo-date">02.12.2024</div>
+                    <div class="photo-text">Kargo verdikk</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/15bf9d781fd0abe25e75cfe935fddfe2bf8bdc70/IMG-20241202-WA0002.jpeg" alt="Kargo verdikk" class="photo-image">
+            </div>
+
+            <!-- 30. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/5125f517c6b42d441d90f428133e76915d8e2251/Polish_20250826_102419218.jpg', '03.12.2024', 'Amasra gezimizz')">
+                <div class="photo-text-container">
+                    <div class="photo-date">03.12.2024</div>
+                    <div class="photo-text">Amasra gezimizz</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/5125f517c6b42d441d90f428133e76915d8e2251/Polish_20250826_102419218.jpg" alt="Amasra gezimizz" class="photo-image">
+            </div>
+
+            <!-- 31. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/d61f8b658b879dee472c9590221720e0e6913d38/Polish_20250826_103059821.jpg', '04.12.2024', 'Sinema ve efsane tostumuzz')">
+                <div class="photo-text-container">
+                    <div class="photo-date">04.12.2024</div>
+                    <div class="photo-text">Sinema ve efsane tostumuzz</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/d61f8b658b879dee472c9590221720e0e6913d38/Polish_20250826_103059821.jpg" alt="Sinema ve tost" class="photo-image">
+            </div>
+
+            <!-- 32. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/b377a75320fb718b0877d1abf56f36de78201b8b/Polish_20250826_192229059.jpg', '06.12.2024', 'İnkumu gezimizz')">
+                <div class="photo-text-container">
+                    <div class="photo-date">06.12.2024</div>
+                    <div class="photo-text">İnkumu gezimizz</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/b377a75320fb718b0877d1abf56f36de78201b8b/Polish_20250826_192229059.jpg" alt="İnkumu gezimizz" class="photo-image">
+            </div>
+
+            <!-- 33. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/f3b50e3812787879228c4ef0b0913feb5e307975/Screenshot_20250826-215333.png', '06.12.2024', 'Geleceğe videomuz')">
+                <div class="photo-text-container">
+                    <div class="photo-date">06.12.2024</div>
+                    <div class="photo-text">Geleceğe videomuz</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/f3b50e3812787879228c4ef0b0913feb5e307975/Screenshot_20250826-215333.png" alt="Geleceğe videomuz" class="photo-image">
+            </div>
+            <!-- 34. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/e1bb8295cb35354efd37e09d264cba7494a74c19/Polish_20250826_220123789.jpg', '06.12.2024', 'Makarna gecemiz 🤍')">
+                <div class="photo-text-container">
+                    <div class="photo-date">06.12.2024</div>
+                    <div class="photo-text">Makarna gecemiz 🤍</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/e1bb8295cb35354efd37e09d264cba7494a74c19/Polish_20250826_220123789.jpg" alt="Makarna gecemiz" class="photo-image">
+            </div>
+
+            <!-- 35. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/0974a5582b4ed8f488f344c21978914e6a6ec17f/Polish_20250826_221634775.jpg', '07.12.2024', 'Bakım vaktimiz')">
+                <div class="photo-text-container">
+                    <div class="photo-date">07.12.2024</div>
+                    <div class="photo-text">Bakım vaktimiz</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/0974a5582b4ed8f488f344c21978914e6a6ec17f/Polish_20250826_221634775.jpg" alt="Bakım vaktimiz" class="photo-image">
+            </div>
+
+            <!-- 36. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/2540dc7faa58d5d9b70dfd422a06fa639f131cb1/IMG_20250827_090019_449.jpg', '23.01.2025', 'Askerlik ödemesi yapıldı')">
+                <div class="photo-text-container">
+                    <div class="photo-date">23.01.2025</div>
+                    <div class="photo-text">Askerlik ödemesi yapıldı</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/2540dc7faa58d5d9b70dfd422a06fa639f131cb1/IMG_20250827_090019_449.jpg" alt="Askerlik ödemesi" class="photo-image">
+            </div>
+
+            <!-- 37. ANI -->
+            <div class="photo-item" onclick="openModal('https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/8d105c6f0bc7ab1d8f1e41ecd48a698efca13bcc/IMG_20250826_222128_541.jpg', '22.08.2025', 'Kabak tatlısı sürprizi')">
+                <div class="photo-text-container">
+                    <div class="photo-date">22.08.2025</div>
+                    <div class="photo-text">Kabak tatlısı sürprizi</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/8d105c6f0bc7ab1d8f1e41ecd48a698efca13bcc/IMG_20250826_222128_541.jpg" alt="Kabak tatlısı sürprizi" class="photo-image">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <span class="close" onclick="closeModal()">×</span>
+        <div class="modal-content">
+            <img id="modal-image" class="modal-image" src="" alt="">
+            <div class="modal-info">
+                <div class="modal-date" id="modal-date"></div>
+                <div class="modal-text" id="modal-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sallanan kalpler oluştur
+        function kalpleriOlustur() {
+            const container = document.getElementById('kalp-container');
+            
+            for (let i = 0; i < 15; i++) {
+                const kalp = document.createElement('div');
+                kalp.className = 'sallanan-kalp';
+                kalp.innerHTML = '❤';
+                kalp.style.left = Math.random() * 100 + 'vw';
+                kalp.style.top = Math.random() * 100 + 'vh';
+                kalp.style.animationDelay = Math.random() * 2 + 's';
+                kalp.style.fontSize = (20 + Math.random() * 20) + 'px';
+                container.appendChild(kalp);
+            }
+        }
+        
+        // Modal fonksiyonları
+        let currentModal = null;
+        
+        function openModal(imageSrc, date, text) {
+            const modal = document.getElementById('modal');
+            const modalImage = document.getElementById('modal-image');
+            const modalDate = document.getElementById('modal-date');
+            const modalText = document.getElementById('modal-text');
+            
+            modalImage.src = imageSrc;
+            modalDate.textContent = date;
+            modalText.textContent = text;
+            
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            currentModal = modal;
+        }
+        
+        function closeModal() {
+            if (currentModal) {
+                currentModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        // Klavye ile kapatma
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+        
+        // Modal dışına tıklayınca kapatma
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('modal')) {
+                closeModal();
+            }
+        });
+        
+        // Sayfa yüklendiğinde kalpleri oluştur
+        window.addEventListener('load', kalpleriOlustur);
+    </script>
+</body>
+</html>
