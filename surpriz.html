@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Puliden Okyaya</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background-color: #ffe6f0;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .sayfa {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* SAYFA 1 - Şifre Ekranı */
+    #sayfa1 {
+      z-index: 10;
+    }
+
+    .intro {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.3);
+      padding: 30px 40px;
+      border-radius: 25px;
+      box-shadow: 0 0 15px rgba(233, 164, 179, 0.4);
+      backdrop-filter: blur(10px);
+      z-index: 11;
+    }
+
+    .intro h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2em;
+      color: #e9a4b3;
+      margin-bottom: 15px;
+    }
+
+    .intro input[type="password"] {
+      padding: 10px;
+      border: 1px solid #e9a4b3;
+      border-radius: 10px;
+      outline: none;
+      text-align: center;
+      font-size: 1em;
+    }
+
+    .intro button {
+      margin-top: 15px;
+      background-color: #f9c5d1;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 15px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .intro button:hover {
+      background-color: #f3a9bb;
+    }
+
+    /* SAYFA 2 - Yazı Ekranı */
+    #sayfa2 {
+      z-index: 5;
+      transform: translateY(100%);
+      background-color: transparent;
+      display: none;
+    }
+
+    #icerik {
+      text-align: center;
+      font-size: 3.5em;
+      color: #e290a0;
+      font-family: 'Great Vibes', cursive;
+      z-index: 6;
+      background: rgba(255, 230, 240, 0.7);
+      padding: 20px 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+    }
+
+    /* SAYFA 3 - Kategoriler Ekranı */
+    #sayfa3 {
+      z-index: 7;
+      transform: translateY(100%);
+      background-color: #ffe6f0;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      overflow-y: auto;
+      padding: 40px 0;
+    }
+
+    .kategori-container {
+      width: 90%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .kategori {
+      margin: 25px 0;
+      text-align: center;
+      position: relative;
+      padding-top: 50px;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    .kategori:nth-child(1) { animation-delay: 0.2s; }
+    .kategori:nth-child(2) { animation-delay: 0.4s; }
+    .kategori:nth-child(3) { animation-delay: 0.6s; }
+    .kategori:nth-child(4) { animation-delay: 0.8s; }
+    .kategori:nth-child(5) { animation-delay: 1.0s; }
+    .kategori:nth-child(6) { animation-delay: 1.2s; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .kategori p {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.8em;
+      color: #e290a0;
+      margin: 0;
+    }
+
+    .kategori .kalp-ikon {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 50px;
+      background-image: url('toz_pembe_kalp.png');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .merkez-kategori {
+      margin: 40px 0;
+    }
+
+    .merkez-kategori p {
+      font-size: 3.2em;
+      color: #e9a4b3;
+    }
+
+    .merkez-kategori .kalp-ikon {
+      width: 60px;
+      height: 60px;
+    }
+
+    /* Kalpler için stil */
+    .kalp {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      animation: uc 10s linear infinite;
+      z-index: 2;
+      pointer-events: none;
+      background-image: url('toz_pembe_kalp.png');
+      background-size: cover;
+      background-position: center;
+    }
+
+    @keyframes uc {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SAYFA 1 - Şifre Ekranı -->
+<div class="sayfa" id="sayfa1">
+  <div class="intro">
+    <h2>Bu sayfa, sadece bir kalbin bildiği şifreyle açılır...</h2>
+    <input type="password" id="sifre" placeholder="Şifreyi gir">
+    <br>
+    <button onclick="kontrolEt()">Giriş Yap</button>
+  </div>
+</div>
+
+<!-- SAYFA 2 - Yazı Ekranı -->
+<div class="sayfa" id="sayfa2">
+  <div id="icerik">
+    Puliden<br>Okyaya
+  </div>
+</div>
+
+<!-- SAYFA 3 - Kategoriler Ekranı -->
+<div class="sayfa" id="sayfa3">
+  <div class="kategori-container">
+    <div class="kategori">
+      <div class="kalp-ikon"></div>
+      <p onclick="window.location.href='sen-bilmiyorsun-ama.html'" style="cursor: pointer;">Sen bilmiyorsun ama</p>
+</div>
+    
+    <div class="kategori">
+  <div class="kalp-ikon"></div>
+  <p onclick="window.location.href='puli-mektup.html'" style="cursor: pointer;">Puli'den</p>
+</div>
+    
+    <div class="kategori merkez-kategori" onclick="window.location.href='gunun-anlam-ve-onemi.html'" style="cursor: pointer;">
+  <div class="kalp-ikon"></div>
+  <p>Günün anlam ve önemi</p>
+</div>
+    
+    <div class="kategori">
+      <div class="kalp-ikon"></div>
+      <p onclick="window.location.href='yol-haritamiz.html'" style="cursor: pointer;">Yol Haritamız</p>
+    </div>
+    
+    <div class="kategori">
+    <div class="kalp-ikon"></div>
+    <p onclick="window.location.href='bizim-kosemiz.html'" style="cursor: pointer;">Bizim köşemiz</p>
+    
+    <div class="kategori">
+    <div class="kalp-ikon"></div>
+    <p onclick="window.location.href='mutlulugumuzun-izleri.html'" style="cursor: pointer;">Mutluluğumuzun izleri</p>
+</div>
+    
+    </div>
+  </div>
+</div>
+
+<script>
+  let audio;
+  let sayfaNumarasi = 1;
+  let kaydirmaBasladi = false;
+
+  // Sayfaları kaydırma işlevi
+  function sayfaKaydir() {
+    if (sayfaNumarasi < 3 && !kaydirmaBasladi) {
+      kaydirmaBasladi = true;
+      
+      // Mevcut sayfayı kaydır
+      document.getElementById(`sayfa${sayfaNumarasi}`).style.transform = `translateY(-100%)`;
+      
+      // Sonraki sayfayı göster
+      sayfaNumarasi++;
+      document.getElementById(`sayfa${sayfaNumarasi}`).style.display = 'flex';
+      document.getElementById(`sayfa${sayfaNumarasi}`).style.transform = `translateY(0)`;
+      
+      // 3. sayfaya geçtiysek müziği durdur ve kalpleri temizle
+      if (sayfaNumarasi === 3) {
+        if (audio) {
+          audio.pause();
+        }
+        document.querySelectorAll('.kalp').forEach(kalp => kalp.remove());
+      }
+      
+      // Kaydırma işlemi bittikten sonra flag'i sıfırla
+      setTimeout(() => {
+        kaydirmaBasladi = false;
+      }, 800);
+    }
+  }
+
+  // Kaydırma olayını dinle (sadece 2. sayfada çalışsın)
+  function kaydirmaOlayiniAyarla() {
+    let baslangicY = 0;
+    let kaydirmaAktif = false;
+    
+    document.addEventListener('touchstart', function(e) {
+      if (sayfaNumarasi === 2) {
+        baslangicY = e.touches[0].clientY;
+        kaydirmaAktif = true;
+      }
+    });
+
+    document.addEventListener('touchmove', function(e) {
+      if (kaydirmaAktif && sayfaNumarasi === 2) {
+        let mevcutY = e.touches[0].clientY;
+        let fark = baslangicY - mevcutY;
+        
+        // Yukarı kaydırma (aşağıdan yukarı)
+        if (fark > 100) {
+          sayfaKaydir();
+          kaydirmaAktif = false;
+        }
+      }
+    });
+
+    document.addEventListener('touchend', function() {
+      kaydirmaAktif = false;
+    });
+
+    // Fare ile kaydırmayı da ekle (test için)
+    document.addEventListener('wheel', function(e) {
+      if (sayfaNumarasi === 2 && e.deltaY > 30) {
+        sayfaKaydir();
+      }
+    });
+  }
+
+  // Şifre kontrolü
+  function kontrolEt() {
+    var sifre = document.getElementById("sifre").value;
+    if (sifre === "2207") {
+      // İlk sayfayı kaydır ve ikinci sayfayı göster
+      document.getElementById("sayfa1").style.transform = "translateY(-100%)";
+      document.getElementById("sayfa2").style.display = "flex";
+      document.getElementById("sayfa2").style.transform = "translateY(0)";
+      sayfaNumarasi = 2;
+
+      // Müziği çal
+      audio = new Audio("https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/main/tugkan-sen-benim-kesit.mp3");
+      audio.play();
+      
+      // Kalp yoğunluğunu artır (%40 azaltılmış - 60 yerine 36 kalp)
+      kalpleriOlustur();
+      
+      // Kaydırma olayını ayarla (şifre doğruysa)
+      kaydirmaOlayiniAyarla();
+    } else {
+      alert("Şifre yanlış!");
+    }
+  }
+
+  // Kalpleri oluşturma fonksiyonu (%40 daha az kalp)
+  function kalpleriOlustur() {
+    // Önceki kalpleri temizle
+    document.querySelectorAll('.kalp').forEach(kalp => kalp.remove());
+    
+    // %40 daha az kalp (60 yerine 36 adet)
+    for (let i = 0; i < 36; i++) {
+      let kalp = document.createElement("div");
+      kalp.className = "kalp";
+      kalp.style.left = Math.random() * 100 + "vw";
+      kalp.style.animationDuration = (3 + Math.random() * 4) + "s";
+      kalp.style.animationDelay = Math.random() * 2 + "s";
+      kalp.style.width = (25 + Math.random() * 25) + "px";
+      kalp.style.height = kalp.style.width;
+      document.body.appendChild(kalp);
+    }
+  }
+
+  // Sayfa yüklendiğinde ilk kalpleri oluştur
+  kalpleriOlustur();
+</script>
+
+</body>
+</html>
