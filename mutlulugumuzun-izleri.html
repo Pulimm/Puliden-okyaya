@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutluluğumuzun İzleri</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #ffe6f0;
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .geri-don {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: #f9c5d1;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(233, 164, 179, 0.3);
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+        }
+        
+        .geri-don:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(233, 164, 179, 0.4);
+        }
+        
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 80px auto 50px;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #e290a0;
+            font-weight: normal;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* ZARF GRID */
+        .zarf-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            padding: 30px 0;
+        }
+        
+        /* ZARF KARTI */
+        .zarf-karti {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        /* ÖZELLEŞTİRİLMİŞ PEMBE KALPLİ ZARF */
+        .zarf {
+            font-size: 70px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            text-align: center;
+            animation: zarfTitreme 2s ease-in-out infinite;
+            position: relative;
+            color: #e290a0;
+            text-shadow: 
+                0 0 0 #e290a0,
+                2px 2px 0 #e290a0,
+                2px 2px 10px rgba(226, 144, 160, 0.8);
+        }
+        
+        .zarf::before {
+            content: '💌';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: #e290a0;
+            z-index: 3;
+            pointer-events: none;
+        }
+        
+        .zarf:hover {
+            transform: scale(1.1);
+        }
+        
+        .zarf.acik {
+            animation: zarfAcılma 0.8s ease forwards;
+        }
+        
+        /* ZARF İÇİNDEN ÇIKAN RESİM */
+        .zarf-resim {
+            width: 250px;
+            height: 0;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: all 0.8s ease;
+            opacity: 0;
+            position: relative;
+            margin-top: -15px;
+        }
+        
+        .zarf-resim.acik {
+            height: 300px;
+            opacity: 1;
+            margin-top: 0;
+        }
+        
+        .zarf-resim img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .zarf-resim img:hover {
+            transform: scale(1.05);
+        }
+        
+        /* LIGHTBOX */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* ANİMASYONLAR */
+        @keyframes zarfTitreme {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.05) rotate(-2deg); }
+            50% { transform: scale(1.08) rotate(2deg); }
+            75% { transform: scale(1.05) rotate(-1deg); }
+        }
+        
+        @keyframes zarfAcılma {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.3) rotate(-5deg); opacity: 0.8; }
+            100% { transform: scale(1.2) rotate(0deg); opacity: 0.6; }
+        }
+        
+        @media (max-width: 768px) {
+            .zarf-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .zarf {
+                font-size: 60px;
+            }
+            
+            .zarf-resim {
+                width: 220px;
+            }
+            
+            .zarf-resim.acik {
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<a href="ana-sayfa.html" class="geri-don">← Geri Dön</a>
+
+<div class="container">
+    <div class="header">
+        <h1 class="title">Mutluluğumuzun İzleri</h1>
+    </div>
+    
+    <div class="zarf-grid">
+        <!-- ZARF 1 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(0)">💌</div>
+            <div class="zarf-resim" id="zarfResim0">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/9383f16357769e3e05589affa172eb872bdaa95e/IMG_20250819_091449_816.jpg" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 2 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(1)">💌</div>
+            <div class="zarf-resim" id="zarfResim1">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/7e0fdceb5b8c2a49472f0c1932be12fa1337a386/Screenshot_20250909-225200.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 3 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(2)">💌</div>
+            <div class="zarf-resim" id="zarfResim2">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/0b966ef876608b2ce84031194b9287277ba9d800/Polish_20250909_173416108.jpg" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 4 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(3)">💌</div>
+            <div class="zarf-resim" id="zarfResim3">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/3febfda4a102b7eaeb0300c30e91f22a486ed1d7/IMG_20250902_130040_592.jpg" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 5 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(4)">💌</div>
+            <div class="zarf-resim" id="zarfResim4">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/5ce890f9ad9fd5b6bc51dc36d45cfb19f58360f9/Screenshot_20250820-210507.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 6 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(5)">💌</div>
+            <div class="zarf-resim" id="zarfResim5">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/3da44d3a5ce58c43c4d9f17782fda7719a2cf117/Screenshot_20250909-224838%20(1).png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 7 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(6)">💌</div>
+            <div class="zarf-resim" id="zarfResim6">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/0d8c911ab6cc0d2c2f750fdea08abf08c9a05053/Screenshot_20250909-223529.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 8 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(7)">💌</div>
+            <div class="zarf-resim" id="zarfResim7">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/51ac9e6e1f4710f1d4634eb5acd6231040553cd7/IMG_20250902_125718_043.jpg" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 9 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(8)">💌</div>
+            <div class="zarf-resim" id="zarfResim8">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/426074d80a32f88f43aad1c5028166659486c000/1734367675020_055428.jpg" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 10 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(9)">💌</div>
+            <div class="zarf-resim" id="zarfResim9">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/4fc6b682d8deed180f0f9d8728b0f60444abb1fa/Screenshot_20250909-224450%20(1).png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 11 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(10)">💌</div>
+            <div class="zarf-resim" id="zarfResim10">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/059787b4c909396a9e52f38e74d0b7667c50e492/Screenshot_20250902-090115.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 12 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(11)">💌</div>
+            <div class="zarf-resim" id="zarfResim11">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/3ee9fc1045faf1614af1e4e34e03910110d725a1/Screenshot_20250901-104051.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 13 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(12)">💌</div>
+            <div class="zarf-resim" id="zarfResim12">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/6a65d3292c5975a1b8c30ee72292125d395f380f/IMG_20250902_115642_650.jpg" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 14 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(13)">💌</div>
+            <div class="zarf-resim" id="zarfResim13">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/70ce834d522f1c5458053582a70201fe150b50d2/Screenshot_20250909-225034.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 15 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(14)">💌</div>
+            <div class="zarf-resim" id="zarfResim14">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/0adab97a33dc551be4f0f6e245d61e94c14aab5d/IMG_20250902_111109_178.jpg" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 16 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(15)">💌</div>
+            <div class="zarf-resim" id="zarfResim15">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/9cecf319eea141a72b762495b9ccf17bb18b61b9/Screenshot_20250909-223648.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 17 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(16)">💌</div>
+            <div class="zarf-resim" id="zarfResim16">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/5d37e84cb9b25a0c15334d536d1cae522235f807/IMG_20250909_225732_845.jpg" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 18 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(17)">💌</div>
+            <div class="zarf-resim" id="zarfResim17">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/75ea9d4146b931133c9f2256cb09a9cf4896f3c8/Screenshot_20250901-103609.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 19 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(18)">💌</div>
+            <div class="zarf-resim" id="zarfResim18">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/c0b1f00e514b893302144a791917703d96675051/Screenshot_20250902-091044.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 20 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(19)">💌</div>
+            <div class="zarf-resim" id="zarfResim19">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/24f64094050cfa208fc98ac9a983e60d151d9ca1/Screenshot_20250902-120009.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 21 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(20)">💌</div>
+            <div class="zarf-resim" id="zarfResim20">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/fcf2f9494a3e3a2d4cf06d2df3ef56ce13a1e0b1/Screenshot_20250901-153826.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 22 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(21)">💌</div>
+            <div class="zarf-resim" id="zarfResim21">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/1233d0292256f3ee5a0aaa043c465bc690e9d28e/Screenshot_20250101-114743.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 23 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(22)">💌</div>
+            <div class="zarf-resim" id="zarfResim22">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/7ea831982578749600fdf0f3f5bff8916f99d90e/Screenshot_20250902-124942.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 24 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(23)">💌</div>
+            <div class="zarf-resim" id="zarfResim23">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/e68ec52186ba81e3cf485cb819ee8f882e09928b/Screenshot_20250909-223554.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 25 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(24)">💌</div>
+            <div class="zarf-resim" id="zarfResim24">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/8c623c18d3bf45ec32c34f57acd3e4da439837ec/Screenshot_20250902-091142.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 26 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(25)">💌</div>
+            <div class="zarf-resim" id="zarfResim25">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/f17c4ea609bd04b56d99ae9b95315a0a5d045cd1/Screenshot_20250909-225049.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 27 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(26)">💌</div>
+            <div class="zarf-resim" id="zarfResim26">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/acffb0c95f613521088216ff19d4cdfeefde2110/Screenshot_20250909-225139.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 28 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(27)">💌</div>
+            <div class="zarf-resim" id="zarfResim27">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/6a4c391f7f51b9c22d0750b3978151d01dff25cc/Screenshot_20250909-223622.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 29 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(28)">💌</div>
+            <div class="zarf-resim" id="zarfResim28">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/ef6b69971494917d0c74d18b1ad897eb92212ff4/Polish_20250909_224256667.jpg" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 30 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(29)">💌</div>
+            <div class="zarf-resim" id="zarfResim29">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/762a4627b360094a1d6f2f6925212d34b0973808/IMG_20250902_104619_511.jpg" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 31 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(30)">💌</div>
+            <div class="zarf-resim" id="zarfResim30">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/f212d73862054878be8b808859d781ffca477e48/Screenshot_20250909-224540%20(1).png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 32 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(31)">💌</div>
+            <div class="zarf-resim" id="zarfResim31">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/c54a8fe73c2190cc92a4ba63af45efe16127ad6f/Screenshot_20250902-090936.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 33 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(32)">💌</div>
+            <div class="zarf-resim" id="zarfResim32">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/a0f204126e1abda01f1d734e4d2e5be27d65b2c2/Screenshot_20250909-224809%20(1).png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 34 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(33)">💌</div>
+            <div class="zarf-resim" id="zarfResim33">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/c32e0c3ef2c157aca993ff9bf1e4af8fd51c2d11/Screenshot_20250909-224426%20(1).png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 35 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(34)">💌</div>
+            <div class="zarf-resim" id="zarfResim34">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/de3dfa7ec46fffa5d5a4c362b74b59362c94e9f3/Screenshot_20250909-223742.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+       <!-- ZARF 36 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(35)">💌</div>
+            <div class="zarf-resim" id="zarfResim35">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/dd81ec363b514da8ac73c75e7221262029369779/Polish_20250909_225615127.jpg" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 37 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(36)">💌</div>
+            <div class="zarf-resim" id="zarfResim36">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/82560bd3f85cfde58adcc4c0b84c9e18a84e8f75/Screenshot_20250909-225220.png" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+
+        <!-- ZARF 38 -->
+        <div class="zarf-karti">
+            <div class="zarf" onclick="acZarf(37)">💌</div>
+            <div class="zarf-resim" id="zarfResim37">
+                <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/b9b5c4e6824b2d2cb6e48d1d7ca4d3c9fb59ed30/IMG_20250819_091526_709.jpg" onclick="acLightbox(this.src)">
+            </div>
+        </div>
+        <!-- ZARF 39 -->
+<div class="zarf-karti">
+    <div class="zarf" onclick="acZarf(38)">💌</div>
+    <div class="zarf-resim" id="zarfResim38">
+        <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/50ec82cced547226c9446e30e5d1005c2fddab02/IMG_20250910_215450_376.jpg" onclick="acLightbox(this.src)">
+    </div>
+</div>
+
+<!-- ZARF 40 -->
+<div class="zarf-karti">
+    <div class="zarf" onclick="acZarf(39)">💌</div>
+    <div class="zarf-resim" id="zarfResim39">
+        <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/50ec82cced547226c9446e30e5d1005c2fddab02/IMG_20250910_215508_305.jpg" onclick="acLightbox(this.src)">
+    </div>
+</div>
+        <!-- ZARF 41 -->
+<div class="zarf-karti">
+    <div class="zarf" onclick="acZarf(40)">💌</div>
+    <div class="zarf-resim" id="zarfResim40">
+        <img src="https://raw.githubusercontent.com/Pulimm/Puliden-okyaya/7468d39589097cd6d511633bcc460ae31089ac78/Screenshot_20250910-221759.png" onclick="acLightbox(this.src)">
+    </div>
+</div>
+        
+    </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+    <span class="lightbox-close" onclick="kapatLightbox()">&times;</span>
+    <img class="lightbox-img" id="lightbox-img" src="">
+</div>
+
+<script>
+    // Zarf açma/kapama fonksiyonu
+    function acZarf(zarfIndex) {
+        const zarflar = document.querySelectorAll('.zarf');
+        const zarfResimler = document.querySelectorAll('.zarf-resim');
+        
+        // Tıklanan zarfı aç/kapa
+        if (zarflar[zarfIndex].classList.contains('acik')) {
+            zarflar[zarfIndex].classList.remove('acik');
+            zarfResimler[zarfIndex].classList.remove('acik');
+        } else {
+            zarflar[zarfIndex].classList.add('acik');
+            zarfResimler[zarfIndex].classList.add('acik');
+        }
+    }
+    
+    // Lightbox fonksiyonları
+    function acLightbox(link) {
+        event.stopPropagation(); // Zarfın kapanmasını engelle
+        document.getElementById('lightbox-img').src = link;
+        document.getElementById('lightbox').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function kapatLightbox() {
+        document.getElementById('lightbox').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    
+    // ESC tuşu ile kapatma
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') kapatLightbox();
+    });
+    
+    // Lightbox dışına tıklayınca kapatma
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+        if (e.target === this) kapatLightbox();
+    });
+</script>
+
+</body>
+</html>
