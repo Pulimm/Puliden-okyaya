@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Puli'den</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap');
+
+    :root{
+      --bg: #ffe6f0;
+      --hidden-color: #ffe6f0; /* Arkaplanla AYNI - GİZLİ */
+      --visible-color: #e290a0;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      padding:0;
+      background: var(--bg);
+      font-family: 'Playfair Display', serif;
+      overflow:auto;
+    }
+
+    .metin-container {
+      max-width: 920px;
+      margin: 56px auto;
+      padding: 30px 22px 160px;
+    }
+
+    /* HER PARAGRAF AYRI VE GİZLİ */
+    .paragraf {
+      color: var(--hidden-color); /* BAŞLANGIÇTA GÖRÜNMEZ */
+      font-size: 1.05rem;
+      line-height: 1.75;
+      text-align: justify;
+      margin-bottom: 1.5em;
+      transition: color 0.8s ease;
+    }
+
+    /* IŞIK DEĞDİĞİNDE */
+    .paragraf.visible {
+      color: var(--visible-color); /* SADECE BU PARAGRAF AÇILSIN */
+    }
+
+    .baslik {
+      color: #e290a0;
+      font-size: 2em;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 2em;
+    }
+
+    .cikis{
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 1500;
+      background: rgba(249,197,209,0.3);
+      color: var(--visible-color);
+      padding: 10px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 500;
+      border: 2px solid rgba(226,144,160,0.25);
+    }
+
+    #mum{
+      position: fixed;
+      width: 56px;
+      height: 56px;
+      right: 24px;
+      bottom: 24px;
+      z-index: 2000;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:44px;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.18));
+    }
+
+    .isik {
+      position: fixed;
+      width: 200px;
+      height: 200px;
+      pointer-events: none;
+      border-radius: 50%;
+      z-index: 1800;
+      transform: translate(-50%,-50%);
+      opacity: 0;
+      mix-blend-mode: screen;
+      background: radial-gradient(circle,
+        rgba(255,255,230,0.9) 0%,
+        rgba(255,230,140,0.5) 20%,
+        rgba(255,165,60,0.2) 40%,
+        transparent 70%);
+      filter: blur(8px);
+    }
+
+    @media (max-width:420px){
+      .paragraf{ font-size: 0.98rem; }
+      #mum{ width:52px; height:52px; font-size:40px; }
+      .isik{ width:150px; height:150px;}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="metin-container">
+    <div class="baslik">Puli'den</div>
+
+    <div class="paragraf">Bazı anlar vardır ya, o an hayatın seni nereye getireceğini, neleri tattıracağını, hayatına neleri katacağını bilemezsin. İşte o an, benim için, Instagram Reels videosunun altına yazılmış bir yorumu okuyup beğendiğim zamandı. Nasip olunca bir şekilde gelip buluyor insanı. Nereden bilebilirdim beraber büyüdük diyebileceğim bir insanla karşılaşacağımı.</div>
+
+    <div class="paragraf">Şöyle bir geriye dönüp bakıyorum, acısıyla tatlısıyla Biz olmuşuz. Birbirimize hep bir şeyler katmışız, kötü şeyleri almışız. Birbirimizi ne kadar da güzel büyütüp iyileştirmişiz. Bir an olsun hiç pişman olmadım senden, hep iyi ki dedim.</div>
+
+    <div class="paragraf">Kötü bir an yaşadık, yok, bu sefer farklı dedim, her o seferde, içinden daha da gür bir çiçek açtı. Yok, bu sefer nasıl toparlar eski hâle döneriz dedim, her o seferde, eskisinden de iyi bir hâle geldik.</div>
+
+    <div class="paragraf">İşte her o anlarda, daha da iyi anladım, sensiz bir hayat istemediğimi, sensiz bir güne başlamak istemediğimi, sensiz bir günü bitirmek istemediğimi.</div>
+
+    <div class="paragraf">Milyarlarca insan içinden sadece bir kalbin hasretini çekiyorsun, sadece bir çift gözü görmek istiyorsun, sadece bir dudaktan dökülen cümleleri dinlemek istiyorsun, sadece bir eli tutmak istiyorsun, sadece bir kokuyu içine çekmek istiyorsun, sadece bir kişiyle yaşlanmak istiyorsun.</div>
+
+    <div class="paragraf">İlk beyazlarım çıktığı zaman sana göstermek istiyorum, yanına gelip seninle üzülmek ve işte o an, bir zamanlar bunun hayaliyle yaşadığımı hatırlamak istiyorum. Eve geldiğim zaman o huzur dolu kokuyu seninle almak istiyorum, o evi beraber yuva hâline getirmek istiyorum.</div>
+
+    <div class="paragraf">Her gün şükrediyorum, seni bana verdiği için. Böyle bir sevginin, böyle bir huzurun, böyle bir şefkatin, varlığını seninle tattığıma.</div>
+
+    <div class="paragraf">Malatya'da babaannem bizde kalırken her onunla ilgilenip işini yaptıktan sonra dua ederdi, Rabbim seni el üstünde tutana düşürsün, saraylarda yaşatsın, bana gelip babaanne duaların kabul oldu diyesiniz oğul, derdi. O zamanlar bilmeden içimden sessizce amin derdim.</div>
+
+    <div class="paragraf">Seninle anladım onun dualarının kabul olduğunu, seninle anladım o el üstünde tutulmanın senin kalbinde taşınmak olduğunu, seninle anladım aslında o saraylarda yaşatsın deyişinin hangi saray olduğunu.</div>
+
+    <div class="paragraf">Ve anladım ki, nasibim de, yolum da, yuvam da sensin 🤍</div>
+  </div>
+
+  <div id="isik" class="isik"></div>
+  <div id="mum">🕯️</div>
+  <a class="cikis" href="ana-sayfa.html">← Çıkış</a>
+
+<script>
+  (function(){
+    const mum = document.getElementById('mum');
+    const isik = document.getElementById('isik');
+    const paragraflar = document.querySelectorAll('.paragraf');
+    
+    let isDragging = false;
+
+    // IŞIĞI GÖSTER/GİZLE
+    function setIsikVisible(visible) {
+      isik.style.opacity = visible ? '1' : '0';
+    }
+
+    // MUMU HAREKET ETTİR
+    function moveMum(x, y) {
+      const rect = mum.getBoundingClientRect();
+      const maxX = window.innerWidth - rect.width;
+      const maxY = window.innerHeight - rect.height;
+      
+      mum.style.left = Math.max(0, Math.min(maxX, x)) + 'px';
+      mum.style.top = Math.max(0, Math.min(maxY, y)) + 'px';
+      mum.style.right = 'auto';
+      mum.style.bottom = 'auto';
+      
+      // IŞIĞI MUMUN MERKEZİNE YERLEŞTİR
+      const centerX = parseFloat(mum.style.left) + rect.width / 2;
+      const centerY = parseFloat(mum.style.top) + rect.height / 2;
+      
+      isik.style.left = centerX + 'px';
+      isik.style.top = centerY + 'px';
+      
+      // SADECE IŞIĞIN DEĞDİĞİ PARAGRAFI AÇ
+      checkLightOnParagraphs(centerX, centerY);
+    }
+
+    // SADECE IŞIĞİN DEĞDİĞİ PARAGRAFI AÇ
+    function checkLightOnParagraphs(lightX, lightY) {
+      paragraflar.forEach(paragraf => {
+        const rect = paragraf.getBoundingClientRect();
+        const paraX = rect.left + rect.width / 2;
+        const paraY = rect.top + rect.height / 2;
+        
+        // Işık merkezi ile paragraf merkezi arasındaki mesafe
+        const distance = Math.sqrt(Math.pow(paraX - lightX, 2) + Math.pow(paraY - lightY, 2));
+        
+        if (distance < 150) { // Işık yarıçapı
+          paragraf.classList.add('visible');
+        }
+      });
+    }
+
+    // MOUSE/Touch OLAYLARI
+    mum.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      setIsikVisible(true);
+      const offsetX = e.clientX - mum.getBoundingClientRect().left;
+      const offsetY = e.clientY - mum.getBoundingClientRect().top;
+      
+      function onMouseMove(e) {
+        if (!isDragging) return;
+        moveMum(e.clientX - offsetX, e.clientY - offsetY);
+      }
+      
+      function onMouseUp() {
+        isDragging = false;
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+      }
+      
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    });
+
+    // TOUCH EVENT
+    mum.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      isDragging = true;
+      setIsikVisible(true);
+      const touch = e.touches[0];
+      const offsetX = touch.clientX - mum.getBoundingClientRect().left;
+      const offsetY = touch.clientY - mum.getBoundingClientRect().top;
+      
+      function onTouchMove(e) {
+        if (!isDragging) return;
+        const touch = e.touches[0];
+        moveMum(touch.clientX - offsetX, touch.clientY - offsetY);
+      }
+      
+      function onTouchEnd() {
+        isDragging = false;
+        document.removeEventListener('touchmove', onTouchMove);
+        document.removeEventListener('touchend', onTouchEnd);
+      }
+      
+      document.addEventListener('touchmove', onTouchMove);
+      document.addEventListener('touchend', onTouchEnd);
+    });
+
+    // BAŞLANGIÇTA IŞIĞI GİZLE
+    setIsikVisible(false);
+  })();
+</script>
+
+</body>
+</html>
