@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sen Bilmiyorsun Ama</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #ffe6f0;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .geri-don {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: #f9c5d1;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(233, 164, 179, 0.3);
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+        }
+        
+        .geri-don:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(233, 164, 179, 0.4);
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 80px 0 50px;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #e290a0;
+            font-weight: normal;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .metin-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .metin-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px 0;
+        }
+        
+        .kalp-emoji {
+            font-size: 2rem;
+            color: #e290a0;
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+        
+        .metin-icerik {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.1rem;
+            color: #e290a0;
+            line-height: 1.4;
+            text-align: left;
+        }
+        
+        .son-cumle {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            border-top: 2px solid #e290a0;
+        }
+        
+        .son-cumle-ust {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            color: #e290a0;
+            margin-bottom: 10px;
+        }
+        
+        .son-cumle-alt {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #e290a0;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 70px 0 40px;
+                padding: 15px;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .metin-item {
+                gap: 12px;
+            }
+            
+            .kalp-emoji {
+                font-size: 1.7rem;
+            }
+            
+            .metin-icerik {
+                font-size: 1.7rem;
+            }
+            
+            .son-cumle-ust {
+                font-size: 1.8rem;
+            }
+            
+            .son-cumle-alt {
+                font-size: 2.2rem;
+            }
+            
+            .geri-don {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Geri dön butonu -->
+    <a href="javascript:history.back()" class="geri-don">← Geri Dön</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Sen Bilmiyorsun Ama</h1>
+        </div>
+        
+        <div class="metin-container">
+            <!-- Metinler -->
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama bana birşeyler öğretmeni seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama seninle yeni şeyler denemeyi seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama seninle sabah yürüyüşlerine çıkmayı seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama seninle iddialaşmayı seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama seni dinlemeyi seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama seninle atışmayı seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama gruba girip senin gelmeni beklemeyi seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama telefonu elime alma sebebim sensin.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama bir an önce işlerimi yapıp odama geliş sebebim sensin.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama dua ederken hızlı hızlı genel dualarımı yapıp senin için dua ettiğim kısma geliyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama gün içi kafamda sürekli yüzünü hayal ediyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama ailecek dışarı çıktığımızda önde babam, Muhammed, eniştem yürürken yanlarında hep seni hayal ediyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama her gittiğimiz yerde seninle oraya beraber geldiğimizi hayal ediyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama duştan çıktıktan sonra saçlarımı kurutup müziği açıp dans ederken kapıdan belirup beni izlediğini hayal ediyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama DC de konuşacağımız zaman heyecanlanıp ne giysem diye düşünüyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama Pamiraya baba şöyle böyle yaptı diye seni anlatıyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama rüyamda seni gördükten sonra gözlerimi kapatıp tekrar tekrar o anı yaşıyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama sana her sarılmak istediğimde gözlerimi kapatıp Rustic de uykulu şekilde bana kapıyı açtığın güne gidip, yeni gözlerini açmış sıcacık vücuduna sarıldığımı hayal ediyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama bana attığın videoları açıp tekrar tekrar izliyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama sürekli kayıtlı mesajlarda ki ses kayıtlarımızı dinliyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama bana video, fotoğraf atmanı çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama yoğun bir iş gününden sonra eve geldiğini, mumlar eşliğinde yaptığım yemekleri yediğimizi hayal ediyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama seni suçlamayı çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama senin eşyalarını kullanmayı seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama senin yanında kendimi Bebek gibi hissediyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama güne seninle başlamayı çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama seninle uyumayı çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama gece birbirimizin sesine uyanmayı çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama ellerini, kaşlarını, burnunu çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama dağılan kaşlarını düzeltmeyi çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama elini tutmayı çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama kokunu içime çekmeyi çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama keyifli oluşun beni daha da çok keyiflendiriyor.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama hapşırmanı seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama en çok sana hoşgeldin demeyi seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama beraber Reels izlemeyi seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama beraber bir şeye kafa yormayı seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama şeftali yiyişini seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama bana Nurefşan diye seslenişini çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama sana ben çıktım diye mesaj attıktan sonra benı aramanı seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama birden hadi şu filmi izliyelim deyişini seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama seninle aynı saatte eve gelmeyi seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama beraber otururken bacaklarımı kendi bacaklarının içine almanı çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama beraberken cebinden birden çikolata çıkartmanı çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama dışarıdayken ben eğilmim diye ayakkabılarımı giydirmeni çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama beraber yürürken yolun durumuna göre beni sağına veya soluna almanı çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama yürürken birden durdurup sarılmanı çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama yanımda çocuk gibi neşeli olduğun hallerine bayılıyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama beraber yürürken ellerimi tutup kendi cebine koymanı çok seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama beraber yemek yerken yediğin yemeğin en güzel tarafını benim yemem için bekletmeni ve bana uzatmanı seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama beraber çay kahve içeceğimiz zaman içeceği benim içebileceğim hâle getirmeni seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama merdivenlerden yukarı çıkarken beni önüne almanı seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama ellerim üşüdüğü zaman ısıtmanı seviyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama DC den Film izlerken senin bacaklarını açarak önüne oturduğumu senin arkadan sarıldığını hayal ederek izliyorum.</div>
+            </div>
+            
+            <div class="metin-item">
+                <div class="kalp-emoji">❤</div>
+                <div class="metin-icerik">Sen bilmiyorsun ama bilgisayar başında oturduğun zaman kolların altından girip dizlerini oturduğumu hayal ediyorum.</div>
+            </div>
+            
+        </div>
+        
+        <!-- Son cümle -->
+        <div class="son-cumle">
+            <div class="son-cumle-ust">sen biliyorsun,</div>
+            <div class="son-cumle-alt">SENİ ÇOK SEVİYORUM</div>
+        </div>
+    </div>
+</body>
+</html>
